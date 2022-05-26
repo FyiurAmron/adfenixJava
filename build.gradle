@@ -1,0 +1,53 @@
+plugins {
+    id 'java'
+    id 'io.freefair.lombok'
+    id 'org.springframework.boot' version "$springVersion"
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'org.asciidoctor.convert' version '1.5.8'
+    id 'com.adarshr.test-logger' version '3.0.0'
+}
+
+group = 'se.quedro'
+version = '0.1.0-SNAPSHOT'
+sourceCompatibility = '17'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+}
+
+ext {
+    set('snippetsDir', file("build/generated-snippets"))
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter:$springVersion"
+    implementation "org.springframework.boot:spring-boot-starter-actuator:$springVersion"
+    implementation "org.springframework.boot:spring-boot-starter-web:$springVersion"
+
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
+
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"
+}
+
+test {
+    outputs.dir snippetsDir
+    maxParallelForks = Runtime.runtime.availableProcessors().intdiv(2) ?: 1
+    useJUnitPlatform()
+    testlogger {
+        theme 'mocha'
+        showStandardStreams true
+        showPassedStandardStreams false
+        showSkippedStandardStreams false
+        showFailedStandardStreams true
+    }
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
+
+bootBuildImage {
+    imageName "vaxquis/adfenixJavaTask:${version}"
+}
