@@ -86,6 +86,11 @@ public class SaleObjectConsumerStubService implements SaleObjectConsumer {
         if ( !started ) {
             throw new IllegalStateException( "not started yet" );
         }
+
+        lastCity = "";
+        lastSquareMeters = 0;
+        lastPricePerSquareMeter = 0;
+
         started = false;
     }
 }
