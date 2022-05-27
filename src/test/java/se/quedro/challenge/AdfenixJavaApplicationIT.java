@@ -22,33 +22,28 @@ public class AdfenixJavaApplicationIT {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    private ResponseEntity<String> postHttp( MediaType mediaType, String testDataFilename, String endpointPath )
+        throws IOException {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType( mediaType );
+        HttpEntity<String> httpEntity =
+            new HttpEntity<>( Files.readString( Path.of( TEST_DATA_PATH + testDataFilename ) ), headers );
+        return restTemplate.postForEntity( SALE_OBJECT_PROCESSOR_URL + endpointPath, httpEntity, String.class );
+    }
+
     @Test
     void parsesJsonCorrectly() throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType( MediaType.APPLICATION_JSON );
-        HttpEntity<String> httpEntity =
-            new HttpEntity<>( Files.readString( Path.of( TEST_DATA_PATH + "SaleObjects.json" ) ), headers );
-        ResponseEntity<String> response = restTemplate.
-            postForEntity(
-                SALE_OBJECT_PROCESSOR_URL + "/processJson",
-                httpEntity,
-                String.class
-            );
-        assertEquals( "Processed.", response.getBody() );
+        ResponseEntity<String> responseEntity =
+            postHttp( MediaType.APPLICATION_JSON, "SaleObjects.json", "/processJson" );
+
+        assertEquals( "Processed.", responseEntity.getBody() );
     }
 
     @Test
     void parsesXmlCorrectly() throws IOException {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType( MediaType.TEXT_XML );
-        HttpEntity<String> httpEntity =
-            new HttpEntity<>( Files.readString( Path.of( TEST_DATA_PATH + "SaleObjects.xml" ) ), headers );
-        ResponseEntity<String> response = restTemplate.
-            postForEntity(
-                SALE_OBJECT_PROCESSOR_URL + "/processXml",
-                httpEntity,
-                String.class
-            );
-        assertEquals( "Processed.", response.getBody() );
+        ResponseEntity<String> responseEntity =
+            postHttp( MediaType.TEXT_XML, "SaleObjects.xml", "/processXml" );
+
+        assertEquals( "Processed.", responseEntity.getBody() );
     }
 }
