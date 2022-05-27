@@ -4,7 +4,7 @@ public record SaleObject(
     String type,
     int id,
     String sizeSqm,
-    int startingPrice,
+    long startingPrice,
     PostalAddress postalAddress
 ) {
 }

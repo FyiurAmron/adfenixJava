@@ -6,8 +6,8 @@ public record SaleObject(
     int id,
     SaleObjectType type,
     int sizeSqm,
-    int startingPrice,
-    int startingPricePerSquareMeter,
+    long startingPrice,
+    long startingPricePerSquareMeter,
     Address address
 ) {
     public static List<SaleObject> listFrom( se.quedro.challenge.data.json.SaleObjectGroup saleObjectGroup ) {
@@ -24,13 +24,13 @@ public record SaleObject(
         return saleObjectGroup.saleObjects().stream().map( SaleObject::from ).toList();
     }
 
-    private static int calcStartingPricePerSquareMeter( int startingPrice, int sizeSqm ) {
+    private static long calcStartingPricePerSquareMeter( long startingPrice, int sizeSqm ) {
         return startingPrice * 1000 / sizeSqm;
     }
 
     public static SaleObject from( se.quedro.challenge.data.json.SaleObject saleObject ) {
         int sizeSqm = Integer.parseInt( saleObject.sizeSqm() );
-        int startingPrice = saleObject.startingPrice();
+        long startingPrice = saleObject.startingPrice();
 
         return new SaleObject(
             saleObject.id(),
