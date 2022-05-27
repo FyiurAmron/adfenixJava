@@ -1,0 +1,4 @@
+#!/bin/bash
+for filename; do
+    curl -X POST -H 'Content-Type: text/xml' -s -d @$filename http://localhost:8080/v0/saleObjectProcessor/processXml
+done

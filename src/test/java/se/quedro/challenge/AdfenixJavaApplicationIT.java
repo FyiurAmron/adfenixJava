@@ -17,6 +17,7 @@ import java.nio.file.Path;
 
 @SpringBootTest( webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT )
 public class AdfenixJavaApplicationIT {
+    public static final String SALE_OBJECT_PROCESSOR_URL = "/v0/saleObjectProcessor";
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -28,7 +29,7 @@ public class AdfenixJavaApplicationIT {
             new HttpEntity<>( Files.readString( Path.of( "src/test/data/SaleObjects.json" ) ), headers );
         ResponseEntity<String> response = restTemplate.
             postForEntity(
-                "/v0/saleObjectProcessor" + "/processJson",
+                SALE_OBJECT_PROCESSOR_URL + "/processJson",
                 httpEntity,
                 String.class
             );
@@ -43,7 +44,7 @@ public class AdfenixJavaApplicationIT {
             new HttpEntity<>( Files.readString( Path.of( "src/test/data/SaleObjects.xml" ) ), headers );
         ResponseEntity<String> response = restTemplate.
             postForEntity(
-                "/v0/saleObjectProcessor" + "/processXml",
+                SALE_OBJECT_PROCESSOR_URL + "/processXml",
                 httpEntity,
                 String.class
             );
