@@ -25,6 +25,8 @@ dependencies {
     implementation "org.springframework.boot:spring-boot-starter-actuator:$springVersion"
     implementation "org.springframework.boot:spring-boot-starter-web:$springVersion"
 
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.3'
+
     implementation 'org.springdoc:springdoc-openapi-ui:1.6.8'
 
     testImplementation "org.springframework.boot:spring-boot-starter-test:$springVersion"

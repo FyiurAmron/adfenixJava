@@ -9,4 +9,6 @@ class AdfenixJavaApplicationTests {
     @Test
     void contextLoads() {
     }
+
+    // no actual unit tests since no real business contract was provided in the task
 }
