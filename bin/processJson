@@ -1,4 +1,4 @@
 #!/bin/bash
 for filename; do
-    curl -X POST -H 'Content-Type: application/json' -s -d @SaleObjects.json http://localhost:8080/v0/saleObjectProcessor/processJson
+    curl -X POST -H 'Content-Type: application/json' -s -d @"$filename" http://localhost:8080/v0/saleObjectProcessor/processJson
 done
