@@ -11,4 +11,5 @@ class AdfenixJavaApplicationTests {
     }
 
     // no actual unit tests since no real business contract was provided in the task
+    // the only unit-testable logic is ATM the stub consumer implementation instead
 }
