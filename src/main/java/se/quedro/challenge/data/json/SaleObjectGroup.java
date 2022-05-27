@@ -1,9 +1,9 @@
 package se.quedro.challenge.data.json;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public record SaleObjectGroup(
     int numberOfSaleObjects,
-    List<SaleObject> saleObjects
+    ArrayList<SaleObject> saleObjects
 ) {
 }
